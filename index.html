@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Swing & Mania - Banda de Pagode</title>
+
+  <!-- Font Awesome para os ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
     body {
       margin: 0;
@@ -124,6 +128,38 @@
       background-color: #111;
     }
 
+    /* Redes Sociais */
+    .redes-sociais {
+      position: fixed;
+      top: 30%;
+      right: 0;
+      background-color: #ffc107;
+      padding: 15px 10px;
+      border-top-left-radius: 12px;
+      border-bottom-left-radius: 12px;
+      z-index: 1000;
+      width: 60px;
+      text-align: center;
+      color: #000;
+      font-size: 0.8rem;
+    }
+    .redes-sociais p {
+      margin: 0 0 10px;
+      font-size: 0.7rem;
+      font-weight: bold;
+    }
+    .redes-sociais a {
+      display: block;
+      margin: 12px 0;
+      color: #000;
+      font-size: 1.2rem;
+      transition: transform 0.3s, color 0.3s;
+    }
+    .redes-sociais a:hover {
+      transform: scale(1.2);
+      color: #fff;
+    }
+
     /* Rodapé */
     footer {
       text-align: center;
@@ -135,8 +171,16 @@
   </style>
 </head>
 <body>
+
+  <!-- Bloco lateral de redes sociais -->
+  <div class="redes-sociais">
+    <p>Nos siga nas<br>nossas redes</p>
+    <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.threads.net" target="_blank"><i class="fab fa-at"></i></a> <!-- Usando @ como ícone similar ao Threads -->
+  </div>
+
   <header>
-    <!-- Corrigido: usa logo.png.png (igual no GitHub) -->
     <img src="logo.png.png" alt="Swing & Mania Logo">
     <h1>Swing & Mania</h1>
     <p>A batida do pagode que conquista!</p>
@@ -181,3 +225,5 @@
   </footer>
 </body>
 </html>
+
+
