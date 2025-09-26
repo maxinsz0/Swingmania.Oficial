@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Swing & Mania - Banda de Pagode</title>
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Swing & Mania - Banda de P</title>
+    <link rel="icon" href="imagens/logotipo.png.png" type="image/png">
+</head>
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #d4af37;
+    }
+
+    /* Cabeçalho */
+    header {
+      text-align: center;
+      padding: 30px 20px;
+      background-color: #111;
+    }
+    header img {
+      max-width: 200px;
+    }
+    header h1 {
+      margin: 10px 0 5px;
+      font-size: 2rem;
+      color: #d4af37;
+    }
+    header p {
+      font-size: 1rem;
+      color: #aaa;
+    }
+
+    /* Menu */
+    nav {
+      background-color: #222;
+      padding: 12px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    nav a {
+      color: #d4af37;
+      margin: 0 18px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    nav a:hover {
+      color: #fff;
+    }
+
+    /* Seções */
+    section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    h2 {
+      color: #d4af37;
+      border-bottom: 2px solid #d4af37;
+      display: inline-block;
+      padding-bottom: 5px;
+      margin-bottom: 40px;
+      font-size: 1.8rem;
+    }
+
+    /* Membros */
+    .membros {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
+    }
+    .membro {
+      background: #111;
+      border: 1px solid #d4af37;
+      border-radius: 12px;
+      padding: 20px;
+      width: 220px;
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+      transition: transform 0.3s;
+      cursor: pointer; /* Adicionado para indicar que é clicável */
+    }
+    .membro:hover {
+      transform: translateY(-8px);
+    }
+    .membro h3 {
+      margin: 0 0 8px;
+      font-size: 1.2rem;
+    }
+    .membro p {
+      margin: 0;
+      color: #bbb;
+    }
+
+    /* Patrocinadores */
+    .patrocinadores {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .patrocinador {
+      background: transparent;
+      padding: 6px;
+      border-radius: 12px;
+      width: 120px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s;
+      overflow: hidden;
+    }
+    .patrocinador img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border: none;
+      background: transparent;
+    }
+    .patrocinador:hover {
+      transform: scale(1.05);
+      background-color: #111;
+    }
+
+    /* Redes Sociais - barra fixa com conteúdo centralizado */
+    .redes-sociais {
+      position: fixed;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      background-color: #ffc107;
+      padding: 12px 0;
+      border-top-left-radius: 12px;
+      border-bottom-left-radius: 12px;
+      z-index: 998;
+      width: 80px;
+      color: #000;
+      font-size: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .redes-sociais p {
+      margin: 0 0 15px;
+      font-weight: bold;
+      line-height: 1.2;
+      font-size: 0.8rem;
+    }
+    .redes-sociais a {
+      display: block;
+      margin: 8px 0;
+      color: #000;
+      font-size: 1.6rem;
+      transition: transform 0.3s, color 0.3s;
+    }
+    .redes-sociais a:hover {
+      transform: scale(1.2);
+      color: #fff;
+    }
+
+    /* Rodapé */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #111;
+      font-size: 14px;
+      border-top: 1px solid #222;
+    }
+
+    @media (max-width: 600px) {
+      .redes-sociais {
+        width: 50px;
+        padding: 8px 6px;
+      }
+      .redes-sociais p {
+        display: none;
+      }
+    }
+
+    /* --- Novos Estilos para o Modal --- */
+
+    .modal {
+      display: none; /* Inicia escondido */
+      position: fixed; /* Fica no topo da página */
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding-top: 60px;
+    }
+
+    .modal-content {
+      background-color: #111;
+      margin: 5% auto;
+      padding: 30px;
+      border: 2px solid #d4af37;
+      width: 80%;
+      max-width: 800px;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #fff;
+    }
+
+    .modal-image-container {
+      flex: 1;
+      text-align: center;
+    }
+
+    .modal-image {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      border-radius: 10px;
+      border: 1px solid #d4af37;
+      margin-bottom: 20px;
+    }
+
+    .modal-bio-container {
+      flex: 2;
+      padding: 0 20px;
+      text-align: left;
+    }
+
+    .modal-bio-container h2 {
+      border-bottom: 2px solid #d4af37;
+      padding-bottom: 5px;
+      font-size: 2rem;
+      margin-top: 0;
+      display: block;
+      text-align: left;
+    }
+
+    .modal-bio-container p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #bbb;
+    }
+
+    .close-button {
+      color: #d4af37;
+      font-size: 40px;
+      font-weight: bold;
+      position: absolute;
+      top: 15px;
+      right: 35px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .close-button:hover,
+    .close-button:focus {
+      color: #fff;
+      text-decoration: none;
+    }
+    
+    @media (min-width: 768px) {
+        .modal-content {
+            flex-direction: row;
+        }
+        .modal-image-container {
+            flex: 1;
+        }
+        .modal-bio-container {
+            flex: 2;
+            padding-left: 40px;
+        }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="redes-sociais">
+    <p>Nos siga<br>nas redes</p>
+    <a href="https://www.facebook.com/swingemania/?locale=pt_BR" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://www.instagram.com/swingemaniaoficial?utm_source=ig_web_button_share_sheet&igsh=MTljcmUxYXI3dWl2MQ==" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.threads.net" target="_blank"><i class="fas fa-at"></i></a>
+  </div>
+
+  <header>
+    <img src="logo.png.png" alt="Swing & Mania Logo">
+  </header>
+
+  <nav>
+    <a href="#membros">Membros</a>
+    <a href="#patrocinadores">Patrocinadores</a>
+    <a href="#extras">Extras</a>
+  </nav>
+
+  <section id="membros">
+    <h2>Membros da Banda</h2>
+    <div class="membros">
+      <div class="membro" data-name="Jeferson Fernandes" data-role="TanTan" data-bio="" data-image="fotojeferson.png"><h3>Jeferson Fernandes</h3><p>TanTan</p></div>
+      <div class="membro" data-name="Walter Costa" data-role="Vocalista" data-bio="" data-image="fotowalter.png"><h3>Walter Costa</h3><p>Vocalista</p></div>
+      <div class="membro" data-name="Marcos Mendes" data-role="Surdo" data-bio="" data-image="fotomarcos.png"><h3>Marcos Mendes</h3><p>Surdo</p></div>
+      <div class="membro" data-name="João Cavalheiro" data-role="Pandeiro" data-bio="" data-image="fotojoão.png"><h3>João Cavalheiro</h3><p>Pandeiro</p></div>
+    </div>
+  </section>
+
+  <section id="patrocinadores">
+    <h2>Patrocinadores</h2>
+    <div class="patrocinadores">
+      <div class="patrocinador"><a href="https://www.clinicasawada.com.br/contato.html" target="_blank"><img src="logosawada.png" alt="Odontologia Sawada"></a></div>
+      <div class="patrocinador"><a href="https://letzplay.me/ituporanga"><img src="logobeach.png" alt="Beach Tennis"></a></div>
+      <div class="patrocinador"><a href="https://www.facebook.com/tionilbarbearia/"><img src="logonil.png" alt="Tio Nil"></a></div>
+      <div class="patrocinador"><a href="https://encontreveiculos.com.br/estoque/es-automoveis/3940"><img src="logoes.png" alt="Es Automóveis"></a></div>
+      <div class="patrocinador"><a href="https://www.instagram.com/hikari.terapiasintegradas/"><img src="logohitaki.png" alt="Hikari"></a></div>
+      <div class="patrocinador"><a href="https://www.lightacademia.com/"><img src="logolight.png" alt="Academia"></a></div>
+      <div class="patrocinador"><a href="https://www.instagram.com/rvnespacofitness/"><img src="logoRvn.png" alt="RVN"></a></div>
+    </div>
+  </section>
+
+  <section id="extras">
+    <h2>Extras</h2>
+    <p>Em breve: fotos, vídeos e muito mais!</p>
+  </section>
+
+  <footer>
+    <p>© 2025 Swing & Mania - Todos os direitos reservados</p>
+  </footer>
+  
+  <div id="memberModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <div class="modal-image-container">
+        <img id="modalImage" class="modal-image" src="" alt="Foto do Membro">
+      </div>
+      <div class="modal-bio-container">
+        <h2 id="modalName"></h2>
+        <h3 id="modalRole"></h3>
+        <p id="modalBio"></p>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- CONTATO -->
+<section id="contato" style="padding: 60px 20px; text-align:center; background:#111;">
+  <h2 style="color:#d4af37; border-bottom:2px solid #d4af37; display:inline-block; padding-bottom:5px; margin-bottom:30px; font-size:1.8rem;">
+    Contato
+  </h2>
+
+  <p style="color:#ccc; font-size:1.1rem; margin-bottom:20px;">
+    Fale com a gente pelo WhatsApp: <br>
+    <a href="https://w.app/vy23d4" target="_blank" style="color:#d4af37; font-weight:bold; text-decoration:none;">
+      (47) 99119-5900
+    </a>
+  </p>
+
+  <div style="margin-top:20px;">
+    <img src="imagens/numerowats.jpg" alt="QR Code WhatsApp" style="width:180px; height:180px; border:3px solid #d4af37; border-radius:12px;">
+  </div>
+</section>
+
+
+  <script>
+    // Seleciona todos os elementos com a classe "membro"
+    const membros = document.querySelectorAll('.membro');
+    const modal = document.getElementById('memberModal');
+    const closeBtn = document.querySelector('.close-button');
+    const modalImage = document.getElementById('modalImage');
+    const modalName = document.getElementById('modalName');
+    const modalRole = document.getElementById('modalRole');
+    const modalBio = document.getElementById('modalBio');
+
+    // Adiciona um evento de clique a cada card de membro
+    membros.forEach(membro => {
+        membro.addEventListener('click', () => {
+            // Pega as informações do membro dos 'data-attributes'
+            const name = membro.getAttribute('data-name');
+            const role = membro.getAttribute('data-role');
+            const bio = membro.getAttribute('data-bio');
+            const image = membro.getAttribute('data-image');
+
+            // Preenche o modal com as informações
+            modalName.textContent = name;
+            modalRole.textContent = role;
+            modalBio.textContent = bio;
+            modalImage.src = image;
+
+            // Exibe o modal
+            modal.style.display = 'block';
+        });
+    });
+
+    // Evento para fechar o modal
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    // Fecha o modal se o usuário clicar fora dele
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+  </script>
+
+</body>
+
+
+</html>
