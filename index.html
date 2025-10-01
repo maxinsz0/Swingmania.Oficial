@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Swing & Mania - Banda de Pagode</title>
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+  <link rel="icon" href="imagens/logotipo.png.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #d4af37;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle at 20% 20%, rgba(212,175,55,0.07), transparent 60%),
+                  radial-gradient(circle at 80% 80%, rgba(212,175,55,0.07), transparent 60%);
+      pointer-events: none;
+      z-index: -1;
+      animation: shimmer 10s infinite alternate;
+    }
+    @keyframes shimmer {
+      from { opacity: 0.3; }
+      to { opacity: 0.6; }
+    }
+
+    header {
+      text-align: center;
+      padding: 20px 20px;
+      background-color: #111;
+    }
+    header img {
+      max-width: 180px;
+      filter: drop-shadow(0 0 4px #d4af37);
+    }
+
+    nav {
+      background-color: #222;
+      padding: 12px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    nav a {
+      color: #d4af37;
+      margin: 0 18px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    nav a:hover {
+      color: #fff;
+    }
+
+    section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    h2 {
+      color: #d4af37;
+      border-bottom: 2px solid #d4af37;
+      display: inline-block;
+      padding-bottom: 5px;
+      margin-bottom: 40px;
+      font-size: 1.8rem;
+    }
+
+    .membros {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
+    }
+    .membro {
+      background: #111;
+      border: 1px solid #d4af37;
+      border-radius: 12px;
+      padding: 20px;
+      width: 220px;
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .membro:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.8);
+    }
+
+    .patrocinadores {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .patrocinador {
+      background: transparent;
+      padding: 6px;
+      border-radius: 12px;
+      width: 120px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s;
+    }
+    .patrocinador img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .patrocinador:hover {
+      transform: scale(1.05);
+      background-color: #111;
+    }
+
+    .redes-sociais {
+      position: fixed;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      background-color: #ffc107;
+      padding: 12px 0;
+      border-top-left-radius: 12px;
+      border-bottom-left-radius: 12px;
+      z-index: 998;
+      width: 80px;
+      color: #000;
+      font-size: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .redes-sociais a {
+      display: block;
+      margin: 8px 0;
+      color: #000;
+      font-size: 1.6rem;
+      transition: transform 0.3s, color 0.3s;
+    }
+    .redes-sociais a:hover {
+      transform: scale(1.2);
+      color: #fff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #111;
+      font-size: 14px;
+      border-top: 1px solid #222;
+    }
+
+    @media (max-width: 600px) {
+      .redes-sociais {
+        width: 50px;
+        padding: 8px 6px;
+      }
+      .redes-sociais p {
+        display: none;
+      }
+    }
+
+    /* === AGENDA === */
+    .agenda {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+      margin-top: 30px;
+    }
+    .show-card {
+      background: #111;
+      border: 1px solid #d4af37;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 700px;
+      padding: 25px;
+      box-shadow: 0 0 15px rgba(212,175,55,0.5);
+      text-align: left;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .show-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 25px rgba(212,175,55,0.7);
+    }
+    .show-card h3 {
+      margin: 0;
+      font-size: 1.4rem;
+      color: #fff;
+    }
+    .show-card p {
+      margin: 5px 0;
+      color: #bbb;
+      font-size: 1rem;
+    }
+    .show-card .local {
+      color: #d4af37;
+      font-weight: bold;
+    }
+
+    .galeria {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 30px;
+    }
+    .galeria img {
+      width: 220px;
+      height: 150px;
+      object-fit: cover;
+      border: 2px solid #d4af37;
+      border-radius: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .galeria img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(212,175,55,0.7);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+    .fade-in.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .botao-musica {
+      position: fixed;
+      bottom: 25px;
+      left: 25px;
+      background-color: #d4af37;
+      color: #000;
+      padding: 12px 20px;
+      border-radius: 30px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 0 15px rgba(212,175,55,0.7);
+      transition: all 0.3s;
+      font-size: 1rem;
+      z-index: 999;
+    }
+    .botao-musica:hover {
+      transform: scale(1.05);
+      background-color: #fff;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding-top: 60px;
+    }
+    .modal-content {
+      background-color: #111;
+      margin: 5% auto;
+      padding: 30px;
+      border: 2px solid #d4af37;
+      width: 80%;
+      max-width: 800px;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #fff;
+    }
+    .modal-image {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 10px;
+      border: 1px solid #d4af37;
+      margin-bottom: 20px;
+    }
+    .close-button {
+      color: #d4af37;
+      font-size: 40px;
+      font-weight: bold;
+      position: absolute;
+      top: 15px;
+      right: 35px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="redes-sociais">
+    <p>Nos siga<br>nas redes</p>
+    <a href="https://www.facebook.com/swingemania/?locale=pt_BR" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://www.instagram.com/swingemaniaoficial" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.threads.net" target="_blank"><i class="fas fa-at"></i></a>
+  </div>
+
+  <header>
+    <img src="logo.png.png" alt="Swing & Mania Logo">
+  </header>
+
+  <nav>
+    <a href="#membros">Membros</a>
+    <a href="#agenda">Agenda</a>
+    <a href="#patrocinadores">Patrocinadores</a>
+    <a href="#extras">Extras</a>
+  </nav>
+
+  <section id="membros" class="fade-in">
+    <h2>Membros da Banda</h2>
+    <div class="membros">
+      <div class="membro" data-name="Jeferson Fernandes" data-role="TanTan" data-image="fotojeferson.png"><h3>Jeferson Fernandes</h3><p>TanTan</p></div>
+      <div class="membro" data-name="Walter Costa" data-role="Vocalista" data-image="fotowalter.png"><h3>Walter Costa</h3><p>Vocalista</p></div>
+      <div class="membro" data-name="Marcos Mendes" data-role="Surdo" data-image="fotomarcos.png"><h3>Marcos Mendes</h3><p>Surdo</p></div>
+      <div class="membro" data-name="João Cavalheiro" data-role="Pandeiro" data-image="fotojoão.png"><h3>João Cavalheiro</h3><p>Pandeiro</p></div>
+    </div>
+  </section>
+
+  <!-- AGENDA DE SHOWS -->
+  <section id="agenda" class="fade-in">
+    <h2>Agenda de Shows</h2>
+    <div class="agenda">
+      <div class="show-card">
+        <h3>📅 12 de Outubro de 2025</h3>
+        <p class="local">Praça Central — Ituporanga/SC</p>
+        <p>Show especial de Dia das Crianças com muito pagode e alegria!</p>
+      </div>
+      <div class="show-card">
+        <h3>📅 26 de Outubro de 2025</h3>
+        <p class="local">Bar do Nil — Aurora/SC</p>
+        <p>Noite de pagode com convidados e sorteios exclusivos.</p>
+      </div>
+      <div class="show-card">
+        <h3>📅 09 de Novembro de 2025</h3>
+        <p class="local">Beach Tennis LetzPlay — Ituporanga/SC</p>
+        <p>Show ao pôr do sol, com presença confirmada da galera Swing & Mania!</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="patrocinadores" class="fade-in">
+    <h2>Patrocinadores</h2>
+    <div class="patrocinadores">
+      <div class="patrocinador"><img src="logosawada.png" alt="Odontologia Sawada"></div>
+      <div class="patrocinador"><img src="logobeach.png" alt="Beach Tennis"></div>
+      <div class="patrocinador"><img src="logonil.png" alt="Tio Nil"></div>
+      <div class="patrocinador"><img src="logoes.png" alt="Es Automóveis"></div>
+      <div class="patrocinador"><img src="logohitaki.png" alt="Hikari"></div>
+      <div class="patrocinador"><img src="logolight.png" alt="Academia"></div>
+      <div class="patrocinador"><img src="logoRvn.png" alt="RVN"></div>
+    </div>
+  </section>
+
+  <section id="extras" class="fade-in">
+    <h2>Extras</h2>
+    <p>Em breve: fotos, vídeos e muito mais!</p>
+    <div class="galeria">
+      <img src="foto1.jpg" alt="Show 1">
+      <img src="foto2.jpg" alt="Show 2">
+      <img src="foto3.jpg" alt="Show 3">
+      <img src="foto4.jpg" alt="Show 4">
+    </div>
+  </section>
+
+  <section id="contato" class="fade-in" style="padding: 60px 20px; text-align:center; background:#111;">
+    <h2>Contato</h2>
+    <p style="color:#ccc; font-size:1.1rem; margin-bottom:20px;">
+      Fale com a gente pelo WhatsApp: <br>
+      <a href="https://w.app/vy23d4" target="_blank" style="color:#d4af37; font-weight:bold; text-decoration:none;">
+        (47) 99119-5900
+      </a>
+    </p>
+  </section>
+
+  <footer>
+    <p>© 2025 Swing & Mania - Todos os direitos reservados</p>
+  </footer>
+
+  <div id="memberModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <img id="modalImage" class="modal-image" src="" alt="Foto do Membro">
+      <div>
+        <h2 id="modalName"></h2>
+        <h3 id="modalRole"></h3>
+        <p id="modalBio"></p>
+      </div>
+    </div>
+  </div>
+
+  <a href="https://www.youtube.com/watch?v=uXn4wlk8fL4" class="botao-musica">
+    <i class="fas fa-music"></i> Ouça Agora
+  </a>
+
+  <script>
+    const membros = document.querySelectorAll('.membro');
+    const modal = document.getElementById('memberModal');
+    const closeBtn = document.querySelector('.close-button');
+    const modalImage = document.getElementById('modalImage');
+    const modalName = document.getElementById('modalName');
+    const modalRole = document.getElementById('modalRole');
+    const modalBio = document.getElementById('modalBio');
+
+    membros.forEach(membro => {
+      membro.addEventListener('click', () => {
+        modalName.textContent = membro.dataset.name;
+        modalRole.textContent = membro.dataset.role;
+        modalImage.src = membro.dataset.image;
+        modal.style.display = 'block';
+      });
+    });
+
+    closeBtn.addEventListener('click', () => modal.style.display = 'none');
+    window.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; });
+
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('show'); });
+    });
+    fadeEls.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
